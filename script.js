@@ -5,18 +5,23 @@ const store = {
     } ,
 
 
-
     getState (){
         return this.state
     } ,
 
 
     dispatch (action){
-        return this.state.cart.push(action)
-    }
+
+        if(action.type=="ADD-TO-CARD"){
+             this.state.cart.push(action.payload)
+        } 
+
+    } ,
+
 
 }
 
 
-store.dispatch("apple")
+store.dispatch(  {type:"ADD-TO-CARD",payload :"samsung"}  )
+
 console.log(store.getState())
