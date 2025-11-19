@@ -1,70 +1,55 @@
 const store = {
 
     state: {
-        cart:[] , shop:[]
-    } ,
+        cart: [],
+        shop: []
+    },
 
 
-    getState (){
-        return this.state
-    } ,
+    getState() {
+        return this.state;
+    },
 
 
-    dispatch (action){
-
-        if(action.type=="ADD-TO-CARD"){
-             this.state.cart.push(action.payload)  // action.payload referrs to an object
-        } 
-
-        else if (action.type=="REMOVE-FROM-CARD"){
-            this.state.cart.pop(action.payload)
-        }
-
-
-
-    } ,
-
+    dispatch(action) {
+        this.state = reducer(this.state, action);
+    },
 
 }
 
 
-// store.dispatch(  {type:"ADD-TO-CARD",payload :"apple"}  )
-// store.dispatch(  {type:"REMOVE-FROM-CARD",payload :"samsung"}  )
-// console.log(store.getState())
+function reducer(state, action) {
+    switch (action.type) {
+        case "ADD-TO-CART": 
+            return { ...state, cart: [...state.cart, action.payload] };
+
+        case "REMOVE-FROM-CART": 
+            return {...state,cart:[...state.cart.slice(0,0)]};
+
+        default:
+            return state; 
+    }
+}
 
 
 
 
+// Actions 
 
-// session 6 => converting actions to function 
+function addToCart(product) { 
+    return { type: "ADD-TO-CART", payload: product };
+}
 
-// function addToCard(product){
-//     return  {type:"ADD-TO-CARD",payload :product} 
-// }
-
-// function removeFromCard(product){
-//     return {type:"REMOVE-FROM-CARD",payload:product}
-// }
-
-
-// store.dispatch(  addToCard("apple") )
-// store.dispatch(removeFromCard("apple"))
-
-// console.log(store.getState())
+function removeFromCart(product) { 
+    return { type: "REMOVE-FROM-CART", payload: product };
+}
 
 
 
-// spread op for solving being refrencebel in Array and object 
-// not to change main refrence ( Array or Obj ) .
+// Calling actions
 
-const name = ["ali","amir","mehdi"]
-const copyName=[...name,"mamad"]//copyignsolution also can add new data in array
-console.log(copyName)
-console.log(name)
+store.dispatch(addToCart("apple"));
+console.log(store.getState());
 
-
-const user ={ name:"mehdi" , lastname:"zamani" , age:18 }
-const copyUser = {...user}  //copyign solution
-copyUser.name = "ali"
-console.log(copyUser)
-console.log(user) 
+store.dispatch(removeFromCart("xiaomi"));
+console.log(store.getState());
