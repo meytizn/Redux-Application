@@ -55,7 +55,7 @@ const store = {
 
 
 // spread op for solving being refrencebel in Array and object 
-// not to change main refrence ( Array or Obj )
+// not to change main refrence ( Array or Obj ) .
 
 const name = ["ali","amir","mehdi"]
 const copyName=[...name,"mamad"]//copyignsolution also can add new data in array
